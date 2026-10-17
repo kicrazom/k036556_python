@@ -35,3 +35,6 @@ uv run python main.py
 1. **File → Open** → folder projektu.
 2. Interpreter (prawy dolny róg): `.venv\Scripts\python.exe`.
 3. Prawy przycisk na `main.py` → **Run 'main'**.
+
+Zadanie 2
+Wyjątki "NotFoundError i AccesssDeniedError"
