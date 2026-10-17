@@ -30,17 +30,20 @@ uv sync
 uv run python main.py
 ```
 
-## Utwirzenie projektu w IDE PyCharm
+## Utworzenie projektu w IDE PyCharm
 
 1. **File → Open** → folder projektu.
 2. Interpreter (prawy dolny róg): `.venv\Scripts\python.exe`.
 3. Prawy przycisk na `main.py` → **Run 'main'**.
 
-Zadanie 2
-Wyjątki "NotFoundError i AccesssDeniedError"
+Zadanie 2:
+Wyjątki `NotFoundError` i `AccesssDeniedError`
 
-Zadanie 3
-Klasa SimpleETLF na generatorach
+Zadanie 3:
+Klasa `SimpleETLF` na generatorach
 
-Zadanie 4
-Dekorator z godziną dla SimpeETL
+Zadanie 4:
+Dekorator `log_time` z godziną dla `SimpeETL`
+
+## Dodano biblioteki:
+`numpy`, `pandas`, `matplotlib`, `seaborn`, `scikit-learn`, `keras`
