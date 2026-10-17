@@ -21,7 +21,7 @@ uv --version
 git --version
 ```
 
-## Utworzeie projektu
+## Utworzenie projektu
 
 ```powershell
 git clone https://github.com/kicrazom/k036556_python.git
@@ -37,13 +37,13 @@ uv run python main.py
 3. Prawy przycisk na `main.py` → **Run 'main'**.
 
 Zadanie 2:
-Wyjątki `NotFoundError` i `AccesssDeniedError`
+Wyjątki `NotFoundError` i `AccessDeniedError`
 
 Zadanie 3:
-Klasa `SimpleETLF` na generatorach
+Klasa `SimpleETL` na generatorach
 
 Zadanie 4:
-Dekorator `log_time` z godziną dla `SimpeETL`
+Dekorator `log_time` z godziną dla `SimpleETL`
 
 ## Dodano biblioteki:
 `numpy`, `pandas`, `matplotlib`, `seaborn`, `scikit-learn`, `keras`
