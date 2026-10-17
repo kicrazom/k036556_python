@@ -41,3 +41,6 @@ Wyjątki "NotFoundError i AccesssDeniedError"
 
 Zadanie 3
 Klasa SimpleETLF na generatorach
+
+Zadanie 4
+Dekorator z godziną dla SimpeETL

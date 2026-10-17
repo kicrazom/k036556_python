@@ -2,6 +2,8 @@ import requests
 
 import csv
 
+from datetime import datetime
+
 
 class DownloadError(Exception):
     pass
@@ -27,6 +29,15 @@ def download_file(url, filename="latest.txt"):
 
     with open(filename, "wb") as file:
         file.write(response.content)
+
+
+def log_time(function):
+    def wrapper(*args, **kwargs):
+        print("Start:", datetime.now())
+        result = function(*args, **kwargs)
+        print("Koniec:", datetime.now())
+        return result
+    return wrapper
 
 
 class SimpleETL:
@@ -69,6 +80,7 @@ class SimpleETL:
                     if missing:
                         missing_writer.writerow([row_id] + missing)
 
+    @log_time
     def run(self):
         self.load(self.transform(self.extract()))
 
