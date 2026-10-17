@@ -38,3 +38,6 @@ uv run python main.py
 
 Zadanie 2
 Wyjątki "NotFoundError i AccesssDeniedError"
+
+Zadanie 3
+Klasa SimpleETLF na generatorach
