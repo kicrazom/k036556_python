@@ -1,16 +1,15 @@
 import datetime
-import sqlalchemy
+import random
 
-
-from sqlalchemy import create_engine
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
+from sqlalchemy import create_engine, select, update, delete
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, Session
 
 
 class Base(DeclarativeBase):
     pass
 
 class Experiment(Base):
-    __tablename__ = "experiments"
+    __tablename__ = "eksperymenty"
     id: Mapped[int] = mapped_column(primary_key=True)
     title: Mapped[str]
     created_at: Mapped[datetime.datetime]
@@ -27,3 +26,29 @@ class DataPoint(Base):
 engine = create_engine("sqlite:///eksperymenty.db")
 
 Base.metadata.create_all(engine)
+
+with Session(engine) as session:
+    e1 = Experiment(title= "Eksperyment nr 1", created_at=datetime.datetime.now(), type=1)
+    session.add(e1)
+    e2 = Experiment(title= " Eksperyment nr 2 ", created_at=datetime.datetime.now(), type=2)
+    session.add(e2)
+
+    for i in range(10):
+        dp = DataPoint(real_value=random.random(), target_value=random.random())
+        session.add(dp)
+
+    for eksperyment in session.scalars(select(Experiment)):
+        print(eksperyment.id, eksperyment.title, eksperyment.finished)
+
+    for punkt_kontrolny in session.scalars(select(DataPoint)):
+        print(punkt_kontrolny.id, punkt_kontrolny.real_value, punkt_kontrolny.target_value)
+
+    session.execute(update(Experiment).values(finished=True))
+    session.commit()
+
+    for eksperyment in session.scalars(select(Experiment)):
+        print("po zmianie:", eksperyment.id, eksperyment.title, eksperyment.finished)
+
+session.execute(delete(Experiment))
+session.execute(delete(DataPoint))
+session.commit()
