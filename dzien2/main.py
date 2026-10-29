@@ -1,8 +1,8 @@
 import datetime
 import random
 
-from sqlalchemy import create_engine, select, update, delete
-from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, Session
+from sqlalchemy import create_engine, select, update, delete, ForeignKey
+from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, Session, relationship
 
 
 class Base(DeclarativeBase):
@@ -15,12 +15,15 @@ class Experiment(Base):
     created_at: Mapped[datetime.datetime]
     type: Mapped[int]
     finished: Mapped[bool] = mapped_column(default=False)
+    punkty_title: Mapped[list["DataPoint"]] = relationship(back_populates="eksperyment_title")
 
 class DataPoint(Base):
     __tablename__ = "data"
     id: Mapped[int] = mapped_column(primary_key=True)
     real_value: Mapped[float]
     target_value: Mapped[float]
+    eksperyment_id: Mapped[int] = mapped_column(ForeignKey("eksperymenty.id"))
+    eksperyment_title: Mapped["Experiment"] = relationship(back_populates="punkty_title")
 
 
 engine = create_engine("sqlite:///eksperymenty.db")
@@ -35,7 +38,11 @@ with Session(engine) as session:
 
     for i in range(10):
         dp = DataPoint(real_value=random.random(), target_value=random.random())
-        session.add(dp)
+        e1.punkty_title.append(dp)
+
+    for i in range (10):
+        dp = DataPoint(real_value=random.random(), target_value=random.random())
+        e2.punkty_title.append(dp)
 
     for eksperyment in session.scalars(select(Experiment)):
         print(eksperyment.id, eksperyment.title, eksperyment.finished)
