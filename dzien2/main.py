@@ -1,7 +1,7 @@
 import datetime
 import random
 
-from sqlalchemy import create_engine, select, update, delete, ForeignKey
+from sqlalchemy import create_engine, select, update, delete, ForeignKey, func
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column, Session, relationship
 
 
@@ -55,6 +55,15 @@ with Session(engine) as session:
 
     for eksperyment in session.scalars(select(Experiment)):
         print("po zmianie:", eksperyment.id, eksperyment.title, eksperyment.finished)
+
+    wynik_agregacji = (
+        select(Experiment.title, func.sum(DataPoint.real_value), func.avg(DataPoint.real_value))
+        .join(Experiment.punkty_title)
+        .group_by(Experiment.id)
+    )
+
+    for title, suma, srednia in session.execute(wynik_agregacji):
+        print(title, suma, srednia)
 
 session.execute(delete(Experiment))
 session.execute(delete(DataPoint))
