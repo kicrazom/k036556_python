@@ -65,6 +65,6 @@ with Session(engine) as session:
     for title, suma, srednia in session.execute(wynik_agregacji):
         print(title, suma, srednia)
 
-session.execute(delete(Experiment))
-session.execute(delete(DataPoint))
-session.commit()
+    session.execute(delete(DataPoint))
+    session.execute(delete(Experiment))
+    session.commit()
