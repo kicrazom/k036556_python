@@ -37,13 +37,13 @@ with Session(engine) as session:
         print("po zmianie:", eksperyment.id, eksperyment.title, eksperyment.finished)
 
     wynik_agregacji = (
-        select(Experiment.title, func.sum(DataPoint.real_value), func.avg(DataPoint.real_value))
+        select(Experiment.title, func.sum(DataPoint.real_value), func.avg(DataPoint.real_value), func.sum(DataPoint.target_value), func.avg(DataPoint.target_value))
         .join(Experiment.punkty_title)
         .group_by(Experiment.id)
     )
 
-    for title, suma, srednia in session.execute(wynik_agregacji):
-        print(title, suma, srednia)
+    for title, suma_real, srednia_real, suma_target, srednia_target in session.execute(wynik_agregacji):
+        print(title, suma_real, srednia_real, suma_target, srednia_target)
 
     session.execute(delete(DataPoint))
     session.execute(delete(Experiment))
