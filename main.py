@@ -18,9 +18,6 @@ class AccessDeniedError(DownloadError):
 def download_file(url, filename="latest.txt"):
     response = requests.get(url, stream=True)
 
-    if response.status_code == 400:
-        response = requests.get(url, stream=True)
-
     if response.status_code == 404:
         raise NotFoundError("Nie ma takiego pliku: :" + url)
 
