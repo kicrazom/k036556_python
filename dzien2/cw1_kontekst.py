@@ -45,3 +45,8 @@ with SafeDivision() as sd:
     print("ta linia sie nie wykona")
 
 print("program doszedl do konca")
+
+#punkt 3 ćwiczenia, wyjątek jest wywołany celowo, traceback jest oczekiwany
+nazwa_bledu = "cos2.txt"
+with FileWriter(nazwa_bledu) as b:
+    raise FileNotFoundError("nie ma takiego pliku: "+ nazwa_bledu)
